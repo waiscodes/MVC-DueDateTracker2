@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using LibraryDueDateTracker.Models;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace LibraryDueDateTracker.Controllers
 {
     public class BookController : Controller
@@ -41,7 +39,7 @@ namespace LibraryDueDateTracker.Controllers
 
         public IActionResult Details(int id)
         {
-            ViewBag.bookSelected = GetBookById(id);
+            ViewBag.Book = GetBookById(id);
             return View();
         }
 
