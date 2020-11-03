@@ -15,19 +15,23 @@ namespace LibraryDueDateTracker.Controllers
             return RedirectToAction("List");
         }
 
-        public static List<Book> Books = new List<Book>();
-
-        public IActionResult Create(int id, string title, string author, DateTime publicationDate, DateTime checkoutDate)
+        public IActionResult Create(string id, string title, string author, string publicationDate, string checkedOutDate)
         {
-            try
+            if (id != null && title != null && author != null && publicationDate != null && checkedOutDate != null)
             {
-                CreateBook(id, title.Trim(), author.Trim(), publicationDate, checkoutDate);
-                ViewBag.Msg = "Book successfully added";
+                try
+                {
+                    CreateBook(id, title, author, publicationDate, checkedOutDate);
+                    ViewBag.SuccessfulCreation = true;
+                    ViewBag.Status = $"Successfully added book ID {id}";
+                }
+                catch (Exception e)
+                {
+                    ViewBag.SuccessfulCreation = false;
+                    ViewBag.Status = $"An error occured. {e.Message}";
+                }
             }
-            catch (Exception e)
-            {
-                ViewBag.Msg = e.Message;
-            }
+
             return View();
         }
 
@@ -37,62 +41,77 @@ namespace LibraryDueDateTracker.Controllers
             return View();
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         {
-            ViewBag.Book = GetBookById(id);
+            try
+            {
+                ViewBag.Book = GetBookByID(id);
+            }
+            catch
+            {
+
+            }
             return View();
         }
 
-        public IActionResult Return(int id)
+        public IActionResult Extend(string id)
         {
-            ExtendDueDateForBookByID(id);
-            return RedirectToAction("List");
+            ExtendDueDateByID(id);
+            return RedirectToAction("Details", new Dictionary<string, string>() { { "id", id } });
         }
-        public IActionResult Extend(int id)
+
+        public IActionResult Return(string id)
         {
             ReturnBookByID(id);
-            return RedirectToAction("List");
+            return RedirectToAction("Details", new Dictionary<string, string>() { { "id", id } });
         }
-        public IActionResult Delete(int id)
+
+        public IActionResult Delete(string id)
         {
             DeleteBookByID(id);
             return RedirectToAction("List");
         }
 
-        public void CreateBook(int id, string title, string author, DateTime publicationDate, DateTime checkoutDate)
+        public static List<Book> Books = new List<Book>()
         {
-            List<Book> anyIds = Books.Where(x => x.ID == id).ToList();
 
-            if (!anyIds.Any())
+            new Book(1, "Test Book", "Test Author", new DateTime(1990, 01, 01), new DateTime(2020, 10, 28)),
+            new Book(2, "Another Book", "Test Author", new DateTime(1990, 03, 03), new DateTime(2020, 10, 20))
+
+        };
+
+        public void CreateBook(string id, string title, string author, string publicationDate, string checkedOutDate)
+        {
+            int parsedID = int.Parse(id);
+
+            if (!Books.Exists(x => x.ID == parsedID))
             {
-                Books.Add(new Book(id, title, author, publicationDate, checkoutDate));
+                Books.Add(new Book(parsedID, title.Trim(), author.Trim(), DateTime.Parse(publicationDate), DateTime.Parse(checkedOutDate)));
             }
             else
             {
-                throw new Exception("Id already exists bro");
+                throw new Exception("That Book ID already exists!");
             }
         }
 
-        public Book GetBookById(int id)
+        public Book GetBookByID(string id)
         {
-            Book bookFound = Books.Where(x => x.ID == id).SingleOrDefault();
-            return bookFound;
+            return Books.Where(x => x.ID == int.Parse(id)).Single();
         }
-        public void ExtendDueDateForBookByID(int id)
+
+        public void ExtendDueDateByID(string id)
         {
-            DateTime newdueDate = DateTime.Now.AddDays(7);
-            Book book = Books.Where(x => x.ID == id).Single();
-            book.DueDate = newdueDate;
+            GetBookByID(id).DueDate = GetBookByID(id).DueDate.AddDays(7);
         }
-        public void ReturnBookByID(int id)
+
+        public void ReturnBookByID(string id)
         {
-            DateTime todaysDate = DateTime.Now;
-            Book book = Books.Where(x => x.ID == id).Single();
-            book.ReturnDate = todaysDate;
+            GetBookByID(id).ReturnDate = DateTime.Today;
         }
-        public void DeleteBookByID(int id)
+
+        public void DeleteBookByID(string id)
         {
-            Books.Remove(GetBookById(id));
+            Books.Remove(GetBookByID(id));
         }
     }
 }
