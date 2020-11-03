@@ -4,56 +4,30 @@ namespace LibraryDueDateTracker.Models
     public class Book
     {
         private int _id;
-        public int ID
-        {
-            get
-            {
-                return _id;
-            }
-        }
+        public int ID => _id;
+
         private string _title;
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-        }
+        public string Title => _title;
+
         private string _author;
-        public string Author
-        {
-            get
-            {
-                return _author;
-            }
-        }
+        public string Author => _author;
+
         private DateTime _publicationDate;
-        public DateTime PublicationDate
-        {
-            get
-            {
-                return _publicationDate;
-            }
-        }
+        public DateTime PublicationDate => _publicationDate;
+
         private DateTime _checkoutDate;
-        public DateTime CheckOutDate
-        {
-            get
-            {
-                return _checkoutDate;
-            }
-        }
+        public DateTime CheckOutDate => _checkoutDate;
 
         public DateTime DueDate { get; set; }
         public DateTime? ReturnDate { get; set; }
 
-        public Book(int id, string title, string author, DateTime publicationDate, DateTime checkoutDate)
+        public Book(int id, string title, string author, DateTime publicationDate, DateTime checkedOutDate)
         {
             _id = id;
             _title = title;
             _author = author;
             _publicationDate = publicationDate;
-            _checkoutDate = checkoutDate;
+            _checkoutDate = checkedOutDate;
 
             DueDate = CheckOutDate.AddDays(14);
             ReturnDate = null;
