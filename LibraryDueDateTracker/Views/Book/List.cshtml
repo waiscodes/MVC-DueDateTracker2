@@ -1,0 +1,11 @@
+﻿<ul>
+    @foreach (Book book in ViewBag.Books)
+    {
+        <li>
+            <a href="/Book/Details/?id=@(book.ID)">
+                @(book.Title) by @(book.Author)
+            </a>
+        </li>
+    }
+</ul>
+
