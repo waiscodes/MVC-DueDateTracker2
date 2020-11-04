@@ -36,11 +36,14 @@ namespace LibraryDueDateTracker.Controllers
             }
         }
 
-        public void ExtendDueDateForBorrowByID(string bookID)
+        public static void ExtendDueDateForBorrowByID(string bookID)
         {
             using (LibraryContext context = new LibraryContext())
             {
-                // Create a new Borrow or update existing one? 
+                Borrow extend = context.Borrows.Where(x => x.BookID == int.Parse(bookID)).SingleOrDefault();
+
+                extend.DueDate = extend.DueDate.AddDays(7);
+                context.SaveChanges();
             }
         }
     }

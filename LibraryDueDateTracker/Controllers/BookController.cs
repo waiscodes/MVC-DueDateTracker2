@@ -71,15 +71,14 @@ namespace LibraryDueDateTracker.Controllers
             return RedirectToAction("List");
         }
 
-        public void CreateBook(string id, string title, string author, string publicationDate, string checkedOutDate)
+        public void CreateBook(string title, string authorId, string publicationDate, string checkedOutDate)
         {
                 using (LibraryContext context = new LibraryContext())
                 {
                     context.Books.Add(new Book()
                     {
-                        //AuthorID = int.Parse(id),
+                        AuthorID = int.Parse(authorId),
                         PublicationDate = DateTime.Parse(publicationDate.Trim())
-
                     });
                     context.SaveChanges();
                 }
@@ -87,12 +86,12 @@ namespace LibraryDueDateTracker.Controllers
 
         public Book GetBookByID(string id)
         {
-            Book found;
+            Book specificBook;
             using (LibraryContext context = new LibraryContext())
             {
-                found = context.Books.Where(x => x.ID == int.Parse(id)).SingleOrDefault();
+                specificBook = context.Books.Where(x => x.ID == int.Parse(id)).SingleOrDefault();
             }
-            return found;
+            return specificBook;
         }
 
         public void ExtendDueDateForBorrowByID(string bookId)
@@ -100,8 +99,9 @@ namespace LibraryDueDateTracker.Controllers
             BorrowController.ExtendDueDateForBorrowByID(bookId);
         }
 
-        public void ReturnBookByID(string id)
+        public void ReturnBookByID(string bookId)
         {
+            BorrowController.ReturnBorrowByID(bookId);
         }
 
         public void DeleteBookByID(string bookId)
@@ -125,13 +125,9 @@ namespace LibraryDueDateTracker.Controllers
 
         public List<Book> GetOverdueBooks()
         {
-            List<Book> overdueBooks;
-            using (LibraryContext context = new LibraryContext())
-            {
-                overdueBooks = context.Books.ToList();
-                // Overdue books
-            }
-            return overdueBooks;
+            List<Book> books = GetBooks();
+            List<Book> overDue = books; // Add logic for finding overdue Books
+            return overDue;
         }
     }
 }
