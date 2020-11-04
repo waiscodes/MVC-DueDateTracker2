@@ -114,5 +114,15 @@ namespace LibraryDueDateTracker.Controllers
                 context.SaveChanges();
             }
         }
+
+        public List<Book> GetBooks()
+        {
+            List<Book> all;
+            using (LibraryContext context = new LibraryContext())
+            {
+                all = context.Books.ToList();
+            }
+            return all;
+        }
     }
 }
