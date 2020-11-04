@@ -71,6 +71,7 @@ namespace LibraryDueDateTracker.Models
 
             string kiBook = "FK_" + nameof(Book) +
          "_" + nameof(Author);
+
             modelBuilder.Entity<Book>(entity =>
             {
                 entity.Property(e => e.Title)

@@ -23,7 +23,7 @@ namespace LibraryDueDateTracker.Models
         public DateTime DueDate { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime ReturnedDate { get; set; }
+        public DateTime? ReturnedDate { get; set; }
 
         [ForeignKey(nameof(BookID))]
         [InverseProperty(nameof(Models.Book.Borrows))]
