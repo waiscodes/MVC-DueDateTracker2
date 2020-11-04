@@ -28,11 +28,14 @@ namespace LibraryDueDateTracker.Controllers
             }
         }
 
-        public static void ReturnBorrowByID(string bookId)
+        public static void ReturnBorrowByID(string bookID)
         {
             using (LibraryContext context = new LibraryContext())
             {
-                // Update old book ID
+                Borrow returned = context.Borrows.Where(x => x.BookID == int.Parse(bookID)).SingleOrDefault();
+
+                returned.ReturnedDate = DateTime.Now;
+                context.SaveChanges();
             }
         }
 
