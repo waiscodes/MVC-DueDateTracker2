@@ -8,26 +8,30 @@ namespace LibraryDueDateTracker.Models
     [Table("book")]
     public class Book
     {
-        //public Book()
-        //{
-        //    EMailAddresses = new HashSet<Borrow>();
-        //}
+        public Book()
+        {
+            Borrows = new HashSet<Borrow>();
+        }
 
         [Key]
         [Column(TypeName = "int(10)")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Column(TypeName = "varchar(30)")]
-        public string FirstName { get; set; }
+        [Column(TypeName = "int(10)")]
+        public int AuthorID { get; set; }
 
-        [Column(TypeName = "varchar(30)")]
-        public string LastName { get; set; }
+        [Column(TypeName = "varchar(100)")]
+        public string Title { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime PublicationDate { get; set; }
 
-        //[InverseProperty(nameof(Models.EMailAddress.Person))]
-        //public virtual ICollection<EMailAddress> EMailAddresses { get; set; }
+        [InverseProperty(nameof(Models.Borrow.Book))]
+        public virtual ICollection<Borrow> Borrows { get; set; }
+
+        [ForeignKey(nameof(AuthorID))]
+        [InverseProperty(nameof(Models.Author.Books))]
+        public virtual Author Author { get; set; }
     }
 }
