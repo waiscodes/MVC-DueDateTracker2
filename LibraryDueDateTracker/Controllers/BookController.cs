@@ -97,12 +97,11 @@ namespace LibraryDueDateTracker.Controllers
 
         public void ExtendDueDateForBorrowByID(string bookId)
         {
-            //BorrowController.ExtendDueDateForBorrowByID(bookId);
+            BorrowController.ExtendDueDateForBorrowByID(bookId);
         }
 
         public void ReturnBookByID(string id)
         {
-            //BorrowController.ReturnBorrowByID(id);
         }
 
         public void DeleteBookByID(string bookId)
@@ -116,12 +115,12 @@ namespace LibraryDueDateTracker.Controllers
 
         public List<Book> GetBooks()
         {
-            List<Book> all;
+            List<Book> booksList;
             using (LibraryContext context = new LibraryContext())
             {
-                all = context.Books.ToList();
+                booksList = context.Books.ToList();
             }
-            return all;
+            return booksList;
         }
 
         public List<Book> GetOverdueBooks()
