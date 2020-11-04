@@ -5,13 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryDueDateTracker.Models
 {
-    [Table("book")]
-    public class Book
+    [Table("borrow")]
+    public class Borrow
     {
-        //public Book()
-        //{
-        //    EMailAddresses = new HashSet<Borrow>();
-        //}
 
         [Key]
         [Column(TypeName = "int(10)")]
