@@ -23,10 +23,8 @@ namespace LibraryDueDateTracker.Controllers
                     BookID = int.Parse(bookId),
                     CheckedOutDate = DateTime.Now,
                     DueDate = DateTime.Now.AddDays(14)
-
                 });
                 context.SaveChanges();
-
             }
         }
 
