@@ -149,7 +149,7 @@ namespace LibraryDueDateTracker.Controllers
             return _context.Authors.Any(e => e.ID == id);
         }
 
-        public List<Author> GetAuthors()
+        public static List<Author> GetAuthors()
         {
             List<Author> all;
             using (LibraryContext context = new LibraryContext())
