@@ -77,7 +77,6 @@ namespace LibraryDueDateTracker.Controllers
                 {
                     context.Books.Add(new Book()
                     {
-                        ID = int.Parse(id),
                         //AuthorID = int.Parse(id),
                         PublicationDate = DateTime.Parse(publicationDate.Trim())
 
@@ -123,6 +122,17 @@ namespace LibraryDueDateTracker.Controllers
                 all = context.Books.ToList();
             }
             return all;
+        }
+
+        public List<Book> GetOverdueBooks()
+        {
+            List<Book> overdueBooks;
+            using (LibraryContext context = new LibraryContext())
+            {
+                overdueBooks = context.Books.ToList();
+                // Overdue books
+            }
+            return overdueBooks;
         }
     }
 }
