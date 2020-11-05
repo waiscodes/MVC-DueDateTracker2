@@ -1,12 +1,14 @@
-﻿@*@{
+﻿@{
     ViewData["Title"] = "List";
 }
+
+<h1>List Page</h1>
 
 <h1>List</h1>
 
 @if (ViewBag.Books.Count > 0)
 {
-    <table>
+    <table  class="table">
         <tr>
             <th>ID</th>
             <th>Title</th>
@@ -23,16 +25,15 @@
                 <td><a href="/Book/Details?id=@(book.ID)">@(book.Title)</a></td>
                 <td>@(book.Author)</td>
                 <td>@(book.PublicationDate.ToShortDateString())</td>
-                <td>@(book.CheckOutDate.ToShortDateString())</td>
-                <td>@(book.DueDate.ToShortDateString())</td>
+                @*<td>@(book.CheckOutDate.ToShortDateString())</td>*@
+                @*<td>@(book.DueDate.ToShortDateString())</td>*@
 
-                <td>@((book.ReturnDate == null ? "Not Returned" : ((DateTime)book.ReturnDate).ToShortDateString()))</td>
+                @*<td>@((book.ReturnDate == null ? "Not Returned" : ((DateTime)book.ReturnDate).ToShortDateString()))</td>*@
             </tr>
         }
-
     </table>
 }
 else
 {
     <p>No books have been checked out.</p>
-}*@
+}

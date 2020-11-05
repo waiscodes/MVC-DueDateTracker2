@@ -14,13 +14,13 @@ namespace LibraryDueDateTracker.Controllers
             return View();
         }
 
-        public void CreateBorrow(string bookId)
+        public void CreateBorrow(string bookID)
         {
             using (LibraryContext context = new LibraryContext())
             {
                 context.Borrows.Add(new Borrow()
                 {
-                    BookID = int.Parse(bookId),
+                    BookID = int.Parse(bookID),
                     CheckedOutDate = DateTime.Now,
                     DueDate = DateTime.Now.AddDays(14)
                 });

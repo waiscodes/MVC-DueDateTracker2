@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LibraryDueDateTracker.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryDueDateTracker.Controllers
 {
@@ -14,15 +15,15 @@ namespace LibraryDueDateTracker.Controllers
             return RedirectToAction("List");
         }
 
-        public IActionResult Create(string id, string title, string author, string publicationDate, string checkedOutDate)
+        public IActionResult Create(string title, string author, string publicationDate)
         {
-            if (id != null && title != null && author != null && publicationDate != null && checkedOutDate != null)
+            if (title != null && author != null && publicationDate != null)
             {
                 try
                 {
-                    CreateBook(id, title, author, publicationDate, checkedOutDate);
+                    CreateBook(title, author, publicationDate);
                     ViewBag.SuccessfulCreation = true;
-                    ViewBag.Status = $"Successfully added book ID {id}";
+                    ViewBag.Status = $"Successfully added book";
                 }
                 catch (Exception e)
                 {
@@ -36,7 +37,7 @@ namespace LibraryDueDateTracker.Controllers
 
         public IActionResult List()
         {
-            //ViewBag.Books = Books;
+            ViewBag.Books = GetBooks();
             return View();
         }
 
@@ -55,7 +56,7 @@ namespace LibraryDueDateTracker.Controllers
 
         public IActionResult Extend(string id)
         {
-            //ExtendDueDateByID(id);
+            ExtendDueDateForBorrowByID(id);
             return RedirectToAction("Details", new Dictionary<string, string>() { { "id", id } });
         }
 
@@ -71,17 +72,18 @@ namespace LibraryDueDateTracker.Controllers
             return RedirectToAction("List");
         }
 
-        public void CreateBook(string title, string authorId, string publicationDate, string checkedOutDate)
+        public void CreateBook(string title, string authorId, string publicationDate)
         {
-                using (LibraryContext context = new LibraryContext())
+            using (LibraryContext context = new LibraryContext())
+            {
+                context.Books.Add(new Book()
                 {
-                    context.Books.Add(new Book()
-                    {
-                        AuthorID = int.Parse(authorId),
-                        PublicationDate = DateTime.Parse(publicationDate.Trim())
-                    });
-                    context.SaveChanges();
-                }
+                    AuthorID = int.Parse(authorId),
+                    Title = title,
+                    PublicationDate = DateTime.Parse(publicationDate.Trim())
+                });
+                context.SaveChanges();
+            }
         }
 
         public Book GetBookByID(string id)
@@ -125,8 +127,12 @@ namespace LibraryDueDateTracker.Controllers
 
         public List<Book> GetOverdueBooks()
         {
-            List<Book> books = GetBooks();
-            List<Book> overDue = books; // Add logic for finding overdue Books
+            List<Book> overDue;
+            using (LibraryContext context = new LibraryContext())
+            {
+                overDue = context.Books.Include(x => x.Borrows).ToList();
+                //overDue = bookswithBorrow.Where(x => x.Borrows.Where(x => x.DueDate >));
+            }
             return overDue;
         }
     }
