@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Create";
+    @*ViewData["Title"] = "Create";*@
 }
 
 <section>
@@ -11,7 +11,12 @@
         </div>
         <div>
             <label for="author">Author:</label>
-            <input id="author" type="hidden" name="author" value="-1" />
+            <select name="author">
+            @foreach (Author author in ViewBag.Authors)
+            {
+                <option value="@(author.ID)" selected>@(author.Name)</option>
+            }
+            </select>
         </div>
         <div>
             <label for="publicationDate">Publication Date:</label>

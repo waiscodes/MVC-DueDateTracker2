@@ -31,6 +31,7 @@ namespace LibraryDueDateTracker.Controllers
                     ViewBag.Status = $"An error occured. {e.Message}";
                 }
             }
+            ViewBag.Authors = AuthorController.GetAuthors();
 
             return View();
         }
@@ -130,7 +131,7 @@ namespace LibraryDueDateTracker.Controllers
             List<Book> overDue;
             using (LibraryContext context = new LibraryContext())
             {
-                overDue = context.Books.Include(x => x.Borrows).ToList();
+                overDue = context.Books.Include(x => x.Borrows).Include(x => x.Borrows.Last()).ToList();
                 //overDue = bookswithBorrow.Where(x => x.Borrows.Where(x => x.DueDate >));
             }
             return overDue;
