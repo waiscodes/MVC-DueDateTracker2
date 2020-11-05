@@ -60,16 +60,18 @@ namespace LibraryDueDateTracker.Controllers
             ExtendDueDateForBorrowByID(id);
             return RedirectToAction("Details", new Dictionary<string, string>() { { "id", id } });
         }
-
         public IActionResult Return(string id)
         {
             ReturnBookByID(id);
             return RedirectToAction("Details", new Dictionary<string, string>() { { "id", id } });
         }
-
         public IActionResult Delete(string id)
         {
             DeleteBookByID(id);
+            return RedirectToAction("List");
+        }
+        public IActionResult Borrow(string id)
+        {
             return RedirectToAction("List");
         }
 
@@ -116,6 +118,10 @@ namespace LibraryDueDateTracker.Controllers
                 context.SaveChanges();
             }
         }
+        public void CreateBorrow(string bookId)
+        {
+            BorrowController.CreateBorrow(bookId);
+        }
 
         public List<Book> GetBooks()
         {
@@ -126,7 +132,7 @@ namespace LibraryDueDateTracker.Controllers
             }
             return booksList;
         }
-
+         
         public List<Book> GetOverdueBooks()
         {
             List<Book> overDue;
