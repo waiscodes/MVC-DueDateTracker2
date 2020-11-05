@@ -131,8 +131,7 @@ namespace LibraryDueDateTracker.Controllers
             List<Book> overDue;
             using (LibraryContext context = new LibraryContext())
             {
-                overDue = context.Books.Include(x => x.Borrows).Include(x => x.Borrows.Last()).ToList();
-                //overDue = bookswithBorrow.Where(x => x.Borrows.Where(x => x.DueDate >));
+                overDue = context.Books.Include(x => x.Borrows.Last().DueDate < DateTime.Now).ToList();
             }
             return overDue;
         }

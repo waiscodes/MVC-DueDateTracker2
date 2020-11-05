@@ -1,10 +1,11 @@
-﻿@*@{
+﻿@{
     ViewData["Title"] = "Details";
 }
 
+<h1>@(ViewBag.Book.Title)</h1>
 
 
-@if (ViewBag.Book != null)
+@*@if (ViewBag.Book != null)
 {
     <h1>Details - @(ViewBag.Book.ID)</h1>
     <p>Title: @(ViewBag.Book.Title)</p>
