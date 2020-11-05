@@ -23,9 +23,9 @@
         <td><a href="/Book/Details?id=@(book.ID)">@(book.Title)</a></td>
         <td>@(book.Author.Name)</td>
         <td>@(book.PublicationDate.ToShortDateString())</td>
-        @*<td>@(book.Borrows.Last().CheckedOutDate)</td>
-        <td>@(book.Borrows.Last().DueDate)</td>
+        @*<td>@(book.Borrows.LastOrDefault().DueDate)</td>*@
 
+        @*<td>@(book.Borrows.Las.CheckedOutDate)</td>
         <td>@((book.Borrows.Last().DueDate == null ? "Not Returned" : ((DateTime)book.Borrows.Last().ReturnedDate).ToShortDateString()))</td>*@
     </tr>
         }

@@ -74,6 +74,7 @@ namespace LibraryDueDateTracker.Controllers
         }
 
         public void CreateBook(string title, string authorId, string publicationDate)
+
         {
             using (LibraryContext context = new LibraryContext())
             {
@@ -92,7 +93,7 @@ namespace LibraryDueDateTracker.Controllers
             Book specificBook;
             using (LibraryContext context = new LibraryContext())
             {
-                specificBook = context.Books.Where(x => x.ID == int.Parse(id)).SingleOrDefault();
+                specificBook = context.Books.Where(x => x.ID == int.Parse(id)).Include(x => x.Author).Include(x => x.Borrows).SingleOrDefault();
             }
             return specificBook;
         }

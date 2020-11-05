@@ -9,12 +9,11 @@
 {*@
     <h1>Details - @(ViewBag.Book.ID)</h1>
     <p>Title: @(ViewBag.Book.Title)</p>
-    <p>Author: @(ViewBag.Book.Author)</p>
-    @*<p>Publication Date: @(ViewBag.Book.PublicationDate.ToLongDateString())</p>
-    <p>Checked Out Date: @(ViewBag.Book.CheckOutDate.ToLongDateString())</p>
-    <p>Due Date: @(ViewBag.Book.DueDate.ToLongDateString())</p>*@
+    <p>Author: @(ViewBag.Book.Author.Name)</p>
+    <p>Publication Date: @(ViewBag.Book.PublicationDate.ToShortDateString())</p>
+    @*<p>Checked Out Date: @(ViewBag.Book.Borrows.ID</p>
 
-    @*<p>Returned Date: @((ViewBag.Book.ReturnDate == null ? "Not Returned" : ((DateTime)ViewBag.Book.ReturnDate).ToLongDateString()))</p>*@
+    <p>Returned Date: @((ViewBag.Book.ReturnDate == null ? "Not Returned" : ((DateTime)ViewBag.Book.ReturnDate).ToLongDateString()))</p>*@
 
     <a class="btn btn-success" href="/Book/Return/?id=@(ViewBag.Book.ID)">Return Book</a>
 
