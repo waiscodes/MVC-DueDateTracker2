@@ -2,11 +2,11 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>@(ViewBag.Book.Title)</h1>
 
 
-@*@if (ViewBag.Book != null)
-{*@
+@if (ViewBag.Book != null)
+{
+    <h1>@(ViewBag.Book.Title)</h1>
     <h1>Details - @(ViewBag.Book.ID)</h1>
     <p>Title: @(ViewBag.Book.Title)</p>
     <p>Author: @(ViewBag.Book.Author.Name)</p>
@@ -23,9 +23,9 @@
     <!--Create Borrow works, I just can't show them because I can't figure out how to display borrows.-->
     <a class="btn btn-primary" href="/Book/Borrow/?id=@(ViewBag.Book.ID)">Borrow Book</a>
 
-@*}
+}
 else
 {
     <h1>Details</h1>
     <p>An error occured trying to populate book data. <a href="/Book/List">Click here to return to the book list</a>.</p>
-}*@
+}

@@ -14,7 +14,7 @@ namespace LibraryDueDateTracker.Controllers
             return View();
         }
 
-        public void CreateBorrow(string bookID)
+        public static void CreateBorrow(string bookID)
         {
             using (LibraryContext context = new LibraryContext())
             {
