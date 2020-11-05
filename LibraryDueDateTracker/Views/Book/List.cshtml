@@ -18,16 +18,16 @@
         </tr>
         @foreach (Book book in ViewBag.Books)
         {
-            <tr>
-                <td>@(book.ID)</td>
-                <td><a href="/Book/Details?id=@(book.ID)">@(book.Title)</a></td>
-                <td>@(book.Author.Name)</td>
-                <td>@(book.PublicationDate.ToShortDateString())</td>
-                @*<td>@(book.CheckOutDate.ToShortDateString())</td>*@
-                @*<td>@(book.DueDate.ToShortDateString())</td>*@
+    <tr>
+        <td>@(book.ID)</td>
+        <td><a href="/Book/Details?id=@(book.ID)">@(book.Title)</a></td>
+        <td>@(book.Author.Name)</td>
+        <td>@(book.PublicationDate.ToShortDateString())</td>
+        @*<td>@(book.Borrows.Last().CheckedOutDate)</td>*@
+        @*<td>@(book.Borrows.Last().DueDate)</td>*@
 
-                @*<td>@((book.ReturnDate == null ? "Not Returned" : ((DateTime)book.ReturnDate).ToShortDateString()))</td>*@
-            </tr>
+        @*<td>@((book.Borrows.Last().DueDate == null ? "Not Returned" : ((DateTime)book.Borrows.Last().ReturnedDate).ToShortDateString()))</td>*@
+    </tr>
         }
     </table>
 }

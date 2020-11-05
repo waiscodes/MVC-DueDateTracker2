@@ -1,5 +1,4 @@
-﻿
-@*@{
+﻿@{
     ViewData["Title"] = "Create";
 }
 
@@ -7,16 +6,12 @@
     <h2>Add a book</h2>
     <form action="/Book/Create" method="get">
         <div>
-            <label for="id">ID:</label>
-            <input id="id" type="number" name="id" value="1" />
-        </div>
-        <div>
             <label for="title">Title:</label>
-            <input id="title" type="text" name="title" value="V is For Vendetta" />
+            <input id="title" type="text" name="title" value="Warbreaker" />
         </div>
         <div>
             <label for="author">Author:</label>
-            <input id="author" type="text" name="author" value="Alan Moore" />
+            <input id="author" type="hidden" name="author" value="-1" />
         </div>
         <div>
             <label for="publicationDate">Publication Date:</label>
@@ -32,4 +27,4 @@
 </section>
 
 
-<p>@(ViewBag.Msg)</p>*@
+<p>@(ViewBag.Msg)</p>
