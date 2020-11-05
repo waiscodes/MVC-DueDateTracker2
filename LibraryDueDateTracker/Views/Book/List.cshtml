@@ -2,8 +2,6 @@
     ViewData["Title"] = "List";
 }
 
-<h1>List Page</h1>
-
 <h1>List</h1>
 
 @if (ViewBag.Books.Count > 0)
@@ -23,7 +21,7 @@
             <tr>
                 <td>@(book.ID)</td>
                 <td><a href="/Book/Details?id=@(book.ID)">@(book.Title)</a></td>
-                <td>@(book.Author)</td>
+                <td>@(book.Author.Name)</td>
                 <td>@(book.PublicationDate.ToShortDateString())</td>
                 @*<td>@(book.CheckOutDate.ToShortDateString())</td>*@
                 @*<td>@(book.DueDate.ToShortDateString())</td>*@

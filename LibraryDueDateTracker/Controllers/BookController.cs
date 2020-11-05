@@ -120,7 +120,7 @@ namespace LibraryDueDateTracker.Controllers
             List<Book> booksList;
             using (LibraryContext context = new LibraryContext())
             {
-                booksList = context.Books.ToList();
+                booksList = context.Books.Include(x => x.Author).ToList();
             }
             return booksList;
         }
