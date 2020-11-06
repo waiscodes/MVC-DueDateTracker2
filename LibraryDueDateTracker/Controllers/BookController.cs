@@ -72,7 +72,8 @@ namespace LibraryDueDateTracker.Controllers
         }
         public IActionResult Borrow(string id)
         {
-            return RedirectToAction("List");
+            CreateBorrow(id);
+            return RedirectToAction("Details", new Dictionary<string, string>() { { "id", id } });
         }
 
         public void CreateBook(string title, string authorId, string publicationDate)
