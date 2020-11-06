@@ -7,13 +7,22 @@
 @if (ViewBag.Book != null)
 {
     <h1>@(ViewBag.Book.Title)</h1>
-    <h1>Details - @(ViewBag.Book.ID)</h1>
+    <p>Details: Book ID @(ViewBag.Book.ID)</p>
     <p>Title: @(ViewBag.Book.Title)</p>
     <p>Author: @(ViewBag.Book.Author.Name)</p>
     <p>Publication Date: @(ViewBag.Book.PublicationDate.ToShortDateString())</p>
-    @*<p>Checked Out Date: @(ViewBag.Book.Borrows.ID</p>
-
-    <p>Returned Date: @((ViewBag.Book.ReturnDate == null ? "Not Returned" : ((DateTime)ViewBag.Book.ReturnDate).ToLongDateString()))</p>*@
+    if (ViewBag.Book.Borrows.Count > 0)
+    {
+        @*<p>Checked Out Date: @(ViewBag.Book.Borrows.GetEnumerator().LastOrDefault().DueDate)</p>*@
+    
+        foreach(Borrow borrow in ViewBag.Book.Borrows)
+        {
+            <p>Checkouted Dates: @(borrow.CheckedOutDate.ToShortDateString())</p>
+            <p>DueDates: @(borrow.DueDate.ToShortDateString())</p>
+            <p>Returned Date: @((borrow.ReturnedDate == null ? "Not Returned" : ((DateTime)borrow.ReturnedDate).ToShortDateString()))</p>
+        }
+        
+    }
 
     <a class="btn btn-success" href="/Book/Return/?id=@(ViewBag.Book.ID)">Return Book</a>
 

@@ -128,15 +128,9 @@ namespace LibraryDueDateTracker.Controllers
             List<Book> booksList;
             using (LibraryContext context = new LibraryContext())
             {
-               booksList = context.Books.Include(x => x.Author).Include(x => x.Borrows).ToList();
-                // List<Borrow> borrowsList = context.Borrows.ToList();
+                booksList = context.Books.Include(x => x.Author).Include(x => x.Borrows).ToList();
 
                 // TODO: Add OrderBy to ensure LastOrDefault picks most recent.
-
-                //booksList = bookWithoutBorrows.Include(x => x.ID == borrowsList.LastOrDefault().BookID).ToList();
-                //Trying to figure out how to connect them together when one is a child element. 
-
-                // booksList = bookWithoutBorrows;
             }
             return booksList;
         }

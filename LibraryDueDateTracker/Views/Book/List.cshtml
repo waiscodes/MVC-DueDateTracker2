@@ -2,7 +2,7 @@
     ViewData["Title"] = "List";
 }
 
-<h1>List</h1>
+<h1>List Lol hello</h1>
 
 @if (ViewBag.Books.Count > 0)
 {
@@ -25,16 +25,38 @@
         <td>@(book.PublicationDate.ToShortDateString())</td>
         @if (book.Borrows.Count > 0)
         {
-            <td>@(book.Borrows.LastOrDefault().DueDate)</td>
+            <td>
+                @(book
+                .Borrows
+                .LastOrDefault()
+                .DueDate
+                .ToLongDateString())
+            </td>
 
-            <td>@(book.Borrows.LastOrDefault().CheckedOutDate)</td>
-            <td>@((book.Borrows.LastOrDefault().ReturnedDate == null ? "Not Returned" : ((DateTime)book.Borrows.LastOrDefault().ReturnedDate).ToShortDateString()))</td>
+            <td>
+             @(book
+                .Borrows
+                .LastOrDefault()
+                .CheckedOutDate
+                .ToLongDateString())
+            </td>
+
+            <td>
+                @((book
+                .Borrows
+                .LastOrDefault()
+                .ReturnedDate == null ? "Not Returned" : ((DateTime)book
+                .Borrows
+                .LastOrDefault()
+                .ReturnedDate)
+                .ToShortDateString()))
+            </td>
         }
         else
         {
-            <td>Not Borrowed Yet</td>
-            <td>Not Borrowed Yet</td>
-            <td>Not Borrowed Yet</td>
+            <td><a href="/Book/Details?id=@(book.ID)">Borrow</a></td>
+            <td></td>
+            <td></td>
         }
     </tr>
         }
